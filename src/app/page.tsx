@@ -1,103 +1,54 @@
-import Image from "next/image";
+import Link from 'next/link'
+import React from 'react'
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    <div className="relative">
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 w-full z-20 bg-white border-red-200 dark:bg-linear-to-r from-red-500 to-red-900">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+            <img
+              src="https://videos.openai.com/vg-assets/assets%2Ftask_01k310cbbhf1evwqttbk1hrfvq%2F1755601894_img_0.webp?st=2025-08-19T09%3A27%3A58Z&se=2025-08-25T10%3A27%3A58Z&sks=b&skt=2025-08-19T09%3A27%3A58Z&ske=2025-08-25T10%3A27%3A58Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=3d249c53-07fa-4ba4-9b65-0bf8eb4ea46a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=Qyyvd6I5vzzypZHnK%2BOVaYrlt1XbHL9WDTHttqJpq%2Bs%3D&az=oaivgprodscus"
+              className="h-8"
+              alt="Flowbite Logo"
             />
-            Deploy now
+            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">TheHorrorHouse</span>
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          <div className="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-red-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
+              <li><a href="#" className="block py-2 px-3 text-white bg-red-700 rounded-sm md:bg-transparent md:text-red-400 md:p-0" aria-current="page">Home</a></li>
+              <li><a href="#" className="block py-2 px-3 text-white rounded-sm hover:bg-red-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0">Movies</a></li>
+              <li><a href="#" className="block py-2 px-3 text-white rounded-sm hover:bg-red-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0">Contact</a></li>
+              <li><a href="#" className="block py-2 px-3 text-white rounded-sm hover:bg-red-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0">About</a></li>
+            </ul>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </nav>
+
+      {/* Hero Section */}
+      <div
+        className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
+        style={{ backgroundImage: "url('https://videos.openai.com/vg-assets/assets%2Ftask_01k311cs40f7jvx0ywkemmr8s0%2F1755603035_img_1.webp?st=2025-08-19T10%3A18%3A40Z&se=2025-08-25T11%3A18%3A40Z&sks=b&skt=2025-08-19T10%3A18%3A40Z&ske=2025-08-25T11%3A18%3A40Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=3d249c53-07fa-4ba4-9b65-0bf8eb4ea46a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=xKvicizoXEiwBJK01F%2FFwZyrRiT%2FsQ3%2FLr9W3fz5Pew%3D&az=oaivgprodscus')" }}
+      >
+        {/* Optional: sötét overlay a jobb olvashatóságért */}
+        <div className="absolute inset-0 bg-black/40"></div>
+
+        {/* Content */}
+        <div className="relative z-10 p-6 flex flex-col items-center text-center">
+          <h1 className="text-5xl font-bold text-white mb-6">
+            Welcome To The Horror House
+          </h1>
+          <Link
+            className="inline-flex items-center justify-center bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors shadow-lg hover:shadow-xl"
+            href="/movies"
+          >
+            Go to movies list
+          </Link>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
+
+export default Home
