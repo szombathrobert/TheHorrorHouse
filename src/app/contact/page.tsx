@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-const Home = () => {
+const Contact = () => {
   return (
     <div className="relative">
       {/* Navbar */}
@@ -17,7 +17,7 @@ const Home = () => {
           </a>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-red-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
-              <li><a href="#" className="block py-2 px-3 text-white bg-red-700 rounded-sm md:bg-transparent md:text-red-400 md:p-0" aria-current="page">Home</a></li>
+              <li><a href="/" className="block py-2 px-3 text-white bg-red-700 rounded-sm md:bg-transparent md:text-red-400 md:p-0" aria-current="page">Home</a></li>
               <li><a href="/movies" className="block py-2 px-3 text-white rounded-sm hover:bg-red-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0">Movies</a></li>
               <li><a href="/contact" className="block py-2 px-3 text-white rounded-sm hover:bg-red-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0">Contact</a></li>
               <li><a href="/about" className="block py-2 px-3 text-white rounded-sm hover:bg-red-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0">About</a></li>
@@ -28,8 +28,7 @@ const Home = () => {
 
       {/* Hero Section */}
       <div
-        className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('https://videos.openai.com/vg-assets/assets%2Ftask_01k311cs40f7jvx0ywkemmr8s0%2F1755603035_img_1.webp?st=2025-08-19T10%3A18%3A40Z&se=2025-08-25T11%3A18%3A40Z&sks=b&skt=2025-08-19T10%3A18%3A40Z&ske=2025-08-25T11%3A18%3A40Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=3d249c53-07fa-4ba4-9b65-0bf8eb4ea46a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=xKvicizoXEiwBJK01F%2FFwZyrRiT%2FsQ3%2FLr9W3fz5Pew%3D&az=oaivgprodscus')" }}
+        className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-black"
       >
         {/* Optional: sötét overlay a jobb olvashatóságért */}
         <div className="absolute inset-0 bg-black/40"></div>
@@ -37,18 +36,12 @@ const Home = () => {
         {/* Content */}
         <div className="relative z-10 p-6 flex flex-col items-center text-center">
           <h1 className="text-5xl font-bold text-white mb-6">
-            Welcome To The Horror House
+            Contact page
           </h1>
-          <Link
-            className="inline-flex items-center justify-center bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors shadow-lg hover:shadow-xl"
-            href="/movies"
-          >
-            Go to movies list
-          </Link>
         </div>
       </div>
     </div>
   )
 }
 
-export default Home
+export default Contact
