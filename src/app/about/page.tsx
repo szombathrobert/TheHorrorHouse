@@ -8,7 +8,7 @@ export default function About() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
           
-  const linkClass = (path: string) =>
+  const linkclassName = (path: string) =>
     `block py-2 px-2 rounded-full transition font-medium ${
       pathname === path
         ? "text-white bg-red-700 md:bg-transparent md:text-red-300"
@@ -51,28 +51,28 @@ export default function About() {
               <li>
                 <Link
                   href="/"
-                  className={linkClass("/")}>
+                  className={linkclassName("/")}>
                   Home
                 </Link>
               </li>
               <li>
                 <Link
                   href="/movies"
-                  className={linkClass("/movies")}>
+                  className={linkclassName("/movies")}>
                   Movies
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className={linkClass("/contact")}>
+                  className={linkclassName("/contact")}>
                   Contact
                 </Link>
               </li>
               <li>
                 <Link
                   href="/about"
-                  className={linkClass("/about")}>
+                  className={linkclassName("/about")}>
                   About
                 </Link>
               </li>
@@ -82,14 +82,33 @@ export default function About() {
       </nav>
 
       {/* Hero Section */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-black">
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
-
-        {/* Content */}
-        <div className="relative z-10 p-6 flex flex-col items-center text-center">
-          <h1 className="text-5xl font-bold text-white mb-6">About page</h1>
+      <div className="relative min-h-screen flex flex-col justify-center bg-black pt-24 md:pt-32">
+          <div className="flex flex-col md:flex-row items-center justify-center w-full px-4 md:px-16 gap-8">
+    
+        {/* Left side - Text */}
+        <div className="md:w-1/2 text-white space-y-4">
+          <h2 className="text-3xl font-semibold">Our Story</h2>
+          <p className="text-lg text-gray-300">
+            TheHorrorHouse was born from a passion for horror movies. Here you will find all the existing movies and their imdb rating.
+          </p>
+          <p className="text-lg text-gray-300">
+            Join us and find your tonight's horror expreience.
+          </p>
+          <Link href="/movies" className="mt-4 bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-6 rounded-full transition">
+            Check the movies list here
+          </Link>
         </div>
+
+        {/* Right side - Image */}
+        <div className="md:w-1/2 flex justify-center px-4 md:px-16 overflow-hidden">
+          <img 
+            src="https://hypixel.net/attachments/its-friday-t-shirt-teeturtle-friday-the-13th_800x-jpg.879794/" 
+            alt="Our Story Image" 
+            className="rounded-xl shadow-xl max-w-xs w-xs md:max-w-md lg:max-w-md md:w-auto transform hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+    
+  </div>
       </div>
     </div>
   );

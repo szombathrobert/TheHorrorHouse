@@ -8,7 +8,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const linkClass = (path: string) =>
+  const linkclassName = (path: string) =>
     `block py-2 px-2 rounded-full transition font-medium ${
       pathname === path
         ? "text-white bg-red-700 md:bg-transparent md:text-red-300"
@@ -50,7 +50,7 @@ export default function Home() {
               <li>
                 <Link
                   href="/"
-                  className={linkClass("/")}
+                  className={linkclassName("/")}
                 >
                   Home
                 </Link>
@@ -58,7 +58,7 @@ export default function Home() {
               <li>
                 <Link
                   href="/movies"
-                  className={linkClass("/movies")}
+                  className={linkclassName("/movies")}
                 >
                   Movies
                 </Link>
@@ -66,14 +66,14 @@ export default function Home() {
               <li>
                 <Link
                   href="/contact"
-                  className={linkClass("/contact")}>
+                  className={linkclassName("/contact")}>
                   Contact
                 </Link>
               </li>
               <li>
                 <Link
                   href="/about"
-                  className={linkClass("/about")}>
+                  className={linkclassName("/about")}>
                   About
                 </Link>
               </li>

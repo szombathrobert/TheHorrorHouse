@@ -8,7 +8,7 @@ export default function Contact() {
       const [isOpen, setIsOpen] = useState(false);
       const pathname = usePathname();
         
-      const linkClass = (path: string) =>
+      const linkclassName = (path: string) =>
         `block py-2 px-2 rounded-full transition font-medium ${
           pathname === path
             ? "text-white bg-red-700 md:bg-transparent md:text-red-300"
@@ -51,28 +51,28 @@ export default function Contact() {
               <li>
                 <Link
                   href="/"
-                  className={linkClass("/")}>
+                  className={linkclassName("/")}>
                   Home
                 </Link>
               </li>
               <li>
                 <Link
                   href="/movies"
-                  className={linkClass("/movies")}>
+                  className={linkclassName("/movies")}>
                   Movies
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className={linkClass("/contact")}>
+                  className={linkclassName("/contact")}>
                   Contact
                 </Link>
               </li>
               <li>
                 <Link
                   href="/about"
-                  className={linkClass("/about")}>
+                  className={linkclassName("/about")}>
                   About
                 </Link>
               </li>
@@ -82,31 +82,65 @@ export default function Contact() {
       </nav>
 
       {/* Hero Section */}
-      <div
-        className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-black"
-      >
-        {/* Optional: sötét overlay a jobb olvashatóságért */}
-        <div className="absolute inset-0 bg-black/40"></div>
+      <div className="relative min-h-screen flex flex-col md:flex-row bg-black pt-24">
+          {/* Right side - Image / Illustration */}
+  <div className="md:w-1/2 flex items-center justify-center p-6">
+    <img
+      src="https://i.etsystatic.com/35559813/r/il/99e51a/4212977608/il_570xN.4212977608_hylt.jpg"
+      className="rounded-xl shadow-xl max-w-xs w-xs md:max-w-md lg:max-w-md md:w-auto transform hover:scale-105 transition-transform duration-500"
+    />
+  </div>
+  {/* Left side - Form */}
+  <div className="md:w-1/2 flex items-center justify-center p-6">
+    <div className="w-full max-w-md bg-red-900/90 backdrop-blur-md border border-red-700 rounded-2xl shadow-xl p-8 text-white">
+      <h1 className="text-4xl font-bold mb-6 text-center">Contact Us</h1>
 
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center text-center max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-red-800 dark:border-white-700">
-          <h1 className="text-5xl font-bold text-white mb-6">
-            Contact page
-          </h1>
-            <div className="mt-2">
-              <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
-              <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="John Doe" required />
-          </div>
-          <div className="mt-2">
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-              <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="john.doe@email.com" required />
-          </div>
-          <div className="mt-2">
-            <label htmlFor="large-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
-            <input type="text" id="large-input" className="block w-full p-12 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..." required/>
-          </div>
+      {/* Form */}
+      <form className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block mb-1 text-sm font-medium text-white">Your Name</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="John Doe"
+            className="w-full p-2.5 rounded-lg border border-gray-300 text-white focus:ring-red-500 focus:border-red-500"
+            required
+          />
         </div>
-      </div>
+
+        <div>
+          <label htmlFor="email" className="block mb-1 text-sm font-medium">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="john.doe@email.com"
+            className="w-full p-2.5 rounded-lg border border-gray-300 text-white focus:ring-red-500 focus:border-red-500"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="message" className="block mb-1 text-sm font-medium">Message</label>
+          <textarea
+            id="message"
+            placeholder="Your message..."
+            className="w-full p-3 rounded-lg border border-gray-300 text-white focus:ring-red-500 focus:border-red-500 h-32"
+            required
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full py-2.5 bg-red-700 hover:bg-red-800 rounded-full text-white font-semibold transition"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+</div>
     </div>
   )
 }
