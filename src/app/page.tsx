@@ -80,7 +80,6 @@ export default function Home() {
           className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
           style={{ backgroundImage: "url('/home_page.svg')" }}
         >
-        {/* Optional: sötét overlay a jobb olvashatóságért */}
         <div className="absolute inset-0 bg-black/40"></div>
 
         {/* Content */}

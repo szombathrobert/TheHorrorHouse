@@ -23,7 +23,7 @@ export default function Movies() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [scrollError, setScrollError] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false); // fix hydration
+  const [isDesktop, setIsDesktop] = useState(false); 
 
   // Detect desktop width safely
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function Movies() {
     fetchMovies();
   }, [page, searchQuery]);
 
-  // Hero index reset kereséskor
+  // Hero index reset
   useEffect(() => {
     setHeroIndex(0);
   }, [searchQuery]);
@@ -243,7 +243,7 @@ export default function Movies() {
         </div>
       )}
 
-      {/* Szűrő + kereső */}
+      {/* Filter + Search */}
       <div className="flex justify-between px-6 mt-4 items-center">
         <select
           className="bg-gray-800 text-white p-2 rounded-lg border border-gray-700 focus:outline-none"
@@ -259,7 +259,7 @@ export default function Movies() {
 
         <input
           type="text"
-          placeholder="Keresés cím alapján..."
+          placeholder="Search by Title..."
           className="bg-gray-700 text-white p-2 rounded-lg border border-gray-600 focus:outline-none ml-2"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}

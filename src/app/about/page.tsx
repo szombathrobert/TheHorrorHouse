@@ -24,7 +24,7 @@ export default function About() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse" > <Image src="/navbar_logo.svg" width={32} height={32} className="h-8" alt="TheHorrorHouseLogo" loading="lazy"/> <span className="self-center text-2xl font-semibold whitespace-nowrap text-white"> TheHorrorHouse </span> </Link>
 
-          {/* Hamburger gomb mobilon */}
+          {/* Hamburger mobile */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             type="button"
