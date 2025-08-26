@@ -6,15 +6,8 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-
-// Movie típus
-type Movie = {
-  id: number;
-  title: string;
-  poster_path: string;
-  vote_average: number;
-  release_date: string;
-};
+import MovieModal from "../MovieModal/page";
+import { Movie } from "../types";
 
 // Skeleton card
 export function SkeletonCard() {
@@ -32,21 +25,31 @@ export default function Movies() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState("Szűrő alkalmazása");
+  const [filter, setFilter] = useState("Apply Filter");
   const [heroIndex, setHeroIndex] = useState(0);
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [hasMore, setHasMore] = useState(true);
+  const [scrollError, setScrollError] = useState(false);
+
 
   // Fetch az API-tól: oldalak vagy keresés
-  useEffect(() => {
-    const fetchMovies = async () => {
-      setLoading(true);
-      let url = searchQuery.trim() !== "" 
-        ? `/api/movies?query=${encodeURIComponent(searchQuery)}`
-        : `/api/movies?page=${page}`;
+  // fetchMovies
+useEffect(() => {
+  const fetchMovies = async () => {
+    setLoading(true);
+    let url = searchQuery.trim() !== "" 
+      ? `/api/movies?query=${encodeURIComponent(searchQuery)}`
+      : `/api/movies?page=${page}`;
+    try {
       const res = await fetch(url);
       const data = await res.json();
+
+      if (!res.ok) throw new Error("API error");
+
+      if (data.results.length === 0) setHasMore(false); // nincs több adat
 
       if (searchQuery.trim() !== "") {
         setMovies(data.results);
@@ -54,53 +57,58 @@ export default function Movies() {
       } else {
         setMovies(prev => [
           ...prev,
-          ...data.results.filter(
-            (newMovie: Movie) => !prev.some(m => m.id === newMovie.id)
-          ),
+          ...data.results.filter((newMovie: Movie) => !prev.some(m => m.id === newMovie.id)),
         ]);
       }
+      setScrollError(false);
+    } catch (err) {
+      console.error(err);
+      setScrollError(true);
+      setHasMore(false);
+    } finally {
       setLoading(false);
-    };
+    }
+  };
 
-    fetchMovies();
-  }, [page, searchQuery]);
+  fetchMovies();
+}, [page, searchQuery]);
 
   // Hero index reset kereséskor
   useEffect(() => {
     setHeroIndex(0);
   }, [searchQuery]);
 
-  // Infinite scroll csak ha nincs keresés
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !loading && searchQuery === "") {
-          setPage(prev => prev + 1);
-        }
-      },
-      { root: null, rootMargin: "200px", threshold: 0.1 }
-    );
+  // Infinite scroll observer
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting && !loading && searchQuery === "" && hasMore) {
+        setPage(prev => prev + 1);
+      }
+    },
+    { root: null, rootMargin: "200px", threshold: 0.1 }
+  );
 
-    const currentRef = loaderRef.current;
-    if (currentRef) observer.observe(currentRef);
+  const currentRef = loaderRef.current;
+  if (currentRef) observer.observe(currentRef);
 
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-    };
-  }, [loading, searchQuery]);
+  return () => {
+    if (currentRef) observer.unobserve(currentRef);
+  };
+}, [loading, searchQuery, hasMore]);
 
   // Filter + Search
   const filteredMovies = movies
     .filter(movie => movie.title.toLowerCase().includes(searchQuery.toLowerCase()))
     .sort((a, b) => {
       switch (filter) {
-        case "Pontszám csökkenő":
+        case "Score Decreasing":
           return b.vote_average - a.vote_average;
-        case "Pontszám növekvő":
+        case "Score Increasing":
           return a.vote_average - b.vote_average;
-        case "ABC csökkenő":
+        case "ABC Decreasing":
           return b.title.localeCompare(a.title);
-        case "ABC növekvő":
+        case "ABC Increasing":
           return a.title.localeCompare(b.title);
         default:
           return 0;
@@ -216,11 +224,11 @@ export default function Movies() {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
-          <option disabled>Szűrő alkalmazása</option>
-          <option>Pontszám csökkenő</option>
-          <option>Pontszám növekvő</option>
-          <option>ABC csökkenő</option>
-          <option>ABC növekvő</option>
+          <option disabled>Apply Filter</option>
+          <option>Score Decreasing</option>
+          <option>Score Increasing</option>
+          <option>ABC Decreasing</option>
+          <option>ABC Increasing</option>
         </select>
 
         <input
@@ -244,7 +252,8 @@ export default function Movies() {
                 transition={{ duration: 0.5 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="bg-gray-800 rounded-lg shadow p-2 relative"
+                className="bg-gray-800 rounded-lg shadow p-2 relative cursor-pointer"
+                onClick={() => setSelectedMovie(movie)}
               >
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -260,9 +269,22 @@ export default function Movies() {
             ))}
       </div>
 
+      <MovieModal
+        movie={selectedMovie}
+        onClose={() => setSelectedMovie(null)}
+      />
+
       {/* Loader trigger */}
       <div ref={loaderRef} className="h-10 flex justify-center items-center">
         {loading && searchQuery === "" && <span className="text-white">Loading...</span>}
+        {!loading && scrollError && (
+          <button
+            onClick={() => setPage(prev => prev + 1)}
+            className="bg-red-600 hover:bg-red-800 text-white px-4 py-2 rounded"
+          >
+            Load more
+          </button>
+        )}
       </div>
     </div>
   );
