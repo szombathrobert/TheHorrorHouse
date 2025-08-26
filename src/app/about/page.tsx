@@ -94,9 +94,11 @@ export default function About() {
 
         {/* Right side - Image */}
         <div className="md:w-1/2 flex justify-center px-4 md:px-16 overflow-hidden">
-          <img 
+          <Image 
             src="https://hypixel.net/attachments/its-friday-t-shirt-teeturtle-friday-the-13th_800x-jpg.879794/" 
             alt="Our Story Image" 
+            width={200}
+            height={200}
             className="rounded-xl shadow-xl max-w-xs w-xs md:max-w-md lg:max-w-md md:w-auto transform hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />

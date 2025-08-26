@@ -57,7 +57,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
             <h2 className="text-2xl font-bold mb-2">{movie.title}</h2>
             <p className="text-sm mb-1">Release: {movie.release_date || "N/A"}</p>
             <p className="text-sm mb-2">Rating: ⭐ {movie.vote_average.toFixed(1)}</p>
-            <p className="text-gray-300"><span className="font-bold text-white">Movie's Description:</span> {movie.overview}</p>
+            <p className="text-gray-300"><span className="font-bold text-white">Movie&apos;s Description:</span> {movie.overview}</p>
           </div>
         </motion.div>
       </motion.div>

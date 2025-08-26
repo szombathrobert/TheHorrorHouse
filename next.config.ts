@@ -1,9 +1,22 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    domains: ["image.tmdb.org"], // ide jön minden külső kép host, amit használni akarsz
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.etsystatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org", // a Movie API képekhez
+      },
+      {
+        protocol: "https",
+        hostname: 'hypixel.net'
+      }
+    ],
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

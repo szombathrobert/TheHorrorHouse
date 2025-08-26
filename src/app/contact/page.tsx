@@ -78,8 +78,11 @@ export default function Contact() {
       <div className="relative min-h-screen flex flex-col md:flex-row bg-black pt-24">
           {/* Right side - Image / Illustration */}
   <div className="md:w-1/2 flex items-center justify-center p-6">
-    <img
+    <Image
       src="https://i.etsystatic.com/35559813/r/il/99e51a/4212977608/il_570xN.4212977608_hylt.jpg"
+      alt='Right-side-image'
+      height={600}
+      width={600}
       className="rounded-xl shadow-xl max-w-xs w-xs md:max-w-md lg:max-w-md md:w-auto transform hover:scale-105 transition-transform duration-500"
       loading='lazy'
     />
