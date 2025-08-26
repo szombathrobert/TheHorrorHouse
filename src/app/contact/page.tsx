@@ -22,7 +22,7 @@ export default function Contact() {
       <nav className="fixed top-0 left-0 w-full z-20 bg-gradient-to-r from-red-600 to-red-900 shadow-md">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse" > <Image src="/navbar_logo.svg" width={32} height={32} className="h-8" alt="TheHorrorHouseLogo" /> <span className="self-center text-2xl font-semibold whitespace-nowrap text-white"> TheHorrorHouse </span> </Link>
+          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse" > <Image src="/navbar_logo.svg" width={32} height={32} className="h-8" alt="TheHorrorHouseLogo" loading='lazy'/> <span className="self-center text-2xl font-semibold whitespace-nowrap text-white"> TheHorrorHouse </span> </Link>
 
           {/* Hamburger gomb mobilon */}
           <button
@@ -81,6 +81,7 @@ export default function Contact() {
     <img
       src="https://i.etsystatic.com/35559813/r/il/99e51a/4212977608/il_570xN.4212977608_hylt.jpg"
       className="rounded-xl shadow-xl max-w-xs w-xs md:max-w-md lg:max-w-md md:w-auto transform hover:scale-105 transition-transform duration-500"
+      loading='lazy'
     />
   </div>
   {/* Left side - Form */}

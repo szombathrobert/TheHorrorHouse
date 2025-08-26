@@ -145,7 +145,7 @@ useEffect(() => {
       <nav className="fixed top-0 left-0 w-full z-20 bg-gradient-to-r from-red-600 to-red-900 shadow-md">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <Image src="/navbar_logo.svg" width={32} height={32} className="h-8" alt="TheHorrorHouseLogo" />
+            <Image src="/navbar_logo.svg" width={32} height={32} className="h-8" alt="TheHorrorHouseLogo" loading="lazy"/>
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
               TheHorrorHouse
             </span>
@@ -202,6 +202,7 @@ useEffect(() => {
                 src={`https://image.tmdb.org/t/p/original${heroMovie.poster_path}`}
                 alt={heroMovie.title}
                 className="w-full h-full object-cover rounded-lg"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-black/40 rounded-lg"></div>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
@@ -259,6 +260,7 @@ useEffect(() => {
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
                   className="rounded w-full h-56 object-cover"
+                  loading="lazy"
                 />
                 <span className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-lg shadow-md">
                   ⭐ {movie.vote_average.toFixed(1)}

@@ -13,6 +13,7 @@ export default function NotFound() {
                 width={240} 
                 height={240} 
                 alt="404 Not Found" 
+                loading="lazy"
                 />
         </div>
       {/* Vércsepp animáció */}
