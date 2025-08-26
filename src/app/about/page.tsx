@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export default function About() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,15 +22,7 @@ export default function About() {
       <nav className="fixed top-0 left-0 w-full z-20 bg-gradient-to-r from-red-600 to-red-900 shadow-md">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center space-x-3 rtl:space-x-reverse"
-          >
-            <img src="https://videos.openai.com/vg-assets/assets%2Ftask_01k310cbbhf1evwqttbk1hrfvq%2F1755601894_img_0.webp?st=2025-08-19T09%3A27%3A58Z&se=2025-08-25T10%3A27%3A58Z&sks=b&skt=2025-08-19T09%3A27%3A58Z&ske=2025-08-25T10%3A27%3A58Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=3d249c53-07fa-4ba4-9b65-0bf8eb4ea46a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=Qyyvd6I5vzzypZHnK%2BOVaYrlt1XbHL9WDTHttqJpq%2Bs%3D&az=oaivgprodscus" className="h-8" alt="Flowbite Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
-              TheHorrorHouse
-            </span>
-          </Link>
+          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse" > <Image src="/navbar_logo.svg" className="h-8" alt="TheHorrorHouseLogo" /> <span className="self-center text-2xl font-semibold whitespace-nowrap text-white"> TheHorrorHouse </span> </Link>
 
           {/* Hamburger gomb mobilon */}
           <button
@@ -92,7 +85,7 @@ export default function About() {
             TheHorrorHouse was born from a passion for horror movies. Here you will find all the existing movies and their imdb rating.
           </p>
           <p className="text-lg text-gray-300">
-            Join us and find your tonight's horror expreience.
+            Join us and find your tonight&apos;s horror expreience.
           </p>
           <Link href="/movies" className="mt-4 bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-6 rounded-full transition">
             Check the movies list here

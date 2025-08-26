@@ -3,6 +3,8 @@ import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 // Movie típus
 type Movie = {
@@ -43,24 +45,23 @@ export default function Movies() {
   }, [page]);
 
   // Infinite scroll
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting && !loading) {
-        setPage((prev) => prev + 1);
-      }
-    },
-    { root: null, rootMargin: "200px", threshold: 0.1 }
-  );
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && !loading) {
+            setPage((prev) => prev + 1);
+          }
+        },
+        { root: null, rootMargin: "200px", threshold: 0.1 }
+      );
 
-  if (loaderRef.current) {
-    observer.observe(loaderRef.current);
-  }
+      const currentRef = loaderRef.current;
+      if (currentRef) observer.observe(currentRef);
 
-  return () => {
-    if (loaderRef.current) observer.unobserve(loaderRef.current);
-  };
-}, [loading]);
+      return () => {
+        if (currentRef) observer.unobserve(currentRef);
+      };
+    }, [loading]);
 
   // Hero slider 5 másodpercenként
   useEffect(() => {
@@ -70,12 +71,12 @@ useEffect(() => {
     return () => clearInterval(interval);
   }, [movies]);
 
-  // Szűrő változtatás
+// Szűrő változtatás
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setFilter(value);
 
-    let sorted = [...movies];
+    const sorted = [...movies];
     switch (value) {
       case "Pontszám csökkenő":
         sorted.sort((a, b) => b.vote_average - a.vote_average);
@@ -103,8 +104,7 @@ useEffect(() => {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 w-full z-20 bg-gradient-to-r from-red-600 to-red-900 shadow-md">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse" > <img src="https://videos.openai.com/vg-assets/assets%2Ftask_01k310cbbhf1evwqttbk1hrfvq%2F1755601894_img_0.webp?st=2025-08-19T09%3A27%3A58Z&se=2025-08-25T10%3A27%3A58Z&sks=b&skt=2025-08-19T09%3A27%3A58Z&ske=2025-08-25T10%3A27%3A58Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=3d249c53-07fa-4ba4-9b65-0bf8eb4ea46a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=Qyyvd6I5vzzypZHnK%2BOVaYrlt1XbHL9WDTHttqJpq%2Bs%3D&az=oaivgprodscus" className="h-8" alt="Flowbite Logo" /> <span className="self-center text-2xl font-semibold whitespace-nowrap text-white"> TheHorrorHouse </span> 
-          </Link>
+          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse" > <Image src="/navbar_logo.svg" className="h-8" alt="TheHorrorHouseLogo" /> <span className="self-center text-2xl font-semibold whitespace-nowrap text-white"> TheHorrorHouse </span> </Link>
 
           {/* Hamburger mobil */}
           <button
@@ -118,71 +118,82 @@ useEffect(() => {
           </button>
 
           {/* Menü */}
-          <div
-            className={`md:block w-full md:w-auto overflow-hidden transition-all duration-700 ease-in-out ${
-              isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 md:max-h-full md:opacity-100"
-            }`}
-            id="navbar-default"
-          >
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-red-200 rounded-lg bg-red-800 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent">
-              <li>
-                <Link href="/" className={linkclassName("/")}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/movies" className={linkclassName("/movies")}>
-                  Movies
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className={linkclassName("/contact")}>
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className={linkclassName("/about")}>
-                  About
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <AnimatePresence>
+            {(isOpen || typeof window !== "undefined" && window.innerWidth >= 768) && (
+              <motion.div
+                key="menu"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="w-full md:w-auto overflow-hidden md:overflow-visible"
+                id="navbar-default"
+              >
+                <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-red-200 rounded-lg bg-red-800 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent">
+                  <li>
+                    <Link href="/" className={linkclassName("/")}>
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/movies" className={linkclassName("/movies")}>
+                      Movies
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/contact" className={linkclassName("/contact")}>
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/about" className={linkclassName("/about")}>
+                      About
+                    </Link>
+                  </li>
+                </ul>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </nav>
 
       {/* Hero section */}
       <div className="pt-2">
         {heroMovie && (
-        <div className="relative w-full h-[400px] md:h-[650px] overflow-hidden mt-16 rounded-lg shadow-lg pt-20">
-          {movies.slice(0, 5).map((movie, index) => (
-            <div
-              key={movie.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === heroIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-              }`}
-            >
-              <img
-                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                alt={movie.title}
-                className="w-full h-full object-cover rounded-lg"
-              />
-              <div className="absolute inset-0 bg-black/40 rounded-lg"></div>
-              <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
-                <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg">
-                  Movies List
-                </h1>
-                <p className="mt-4 text-white/80 text-lg md:text-2xl drop-shadow-md">
-                  Find your tonight's movie
-                </p>
-              </div>
-              <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 text-white max-w-xl">
-                <h1 className="text-2xl md:text-4xl font-bold mb-2">{movie.title}</h1>
-                <p className="text-sm md:text-lg mb-2">⭐ {movie.vote_average.toFixed(1)}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+          <div className="relative w-full h-[400px] md:h-[650px] overflow-hidden mt-16 rounded-lg shadow-lg pt-20">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={heroMovie.id}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 1 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+                className="absolute inset-0"
+              >
+                <img
+                  src={`https://image.tmdb.org/t/p/original${heroMovie.poster_path}`}
+                  alt={heroMovie.title}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+                <div className="absolute inset-0 bg-black/40 rounded-lg"></div>
+                <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
+                  <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg">
+                    Movies List
+                  </h1>
+                  <p className="mt-4 text-white/80 text-lg md:text-2xl drop-shadow-md">
+                    Find your tonight&apos;s movie
+                  </p>
+                </div>
+                <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 text-white max-w-xl">
+                  <h1 className="text-2xl md:text-4xl font-bold mb-2">{heroMovie.title}</h1>
+                  <p className="text-sm md:text-lg mb-2">⭐ {heroMovie.vote_average.toFixed(1)}</p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        )}
       </div>
 
       {/* Szűrő */}
@@ -203,7 +214,15 @@ useEffect(() => {
       {/* Filmkártyák grid */}
       <div className="pt-6 px-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {movies.map((movie) => (
-          <div key={movie.id} className="bg-gray-800 rounded-lg shadow p-2 relative">
+          <motion.div
+            key={movie.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            className="bg-gray-800 rounded-lg shadow p-2 relative"
+          >
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
@@ -214,14 +233,14 @@ useEffect(() => {
             </span>
             <p className="text-white mt-2 truncate">{movie.title}</p>
             <p className="text-gray-400 text-xs">{movie.release_date || "N/A"}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       {/* Loader trigger */}
-    <div ref={loaderRef} className="h-10 flex justify-center items-center">
-      {loading && <span className="text-white">Loading...</span>}
-    </div>
+      <div ref={loaderRef} className="h-10 flex justify-center items-center">
+        {loading && <span className="text-white">Loading...</span>}
+      </div>
     </div>
   );
 }
