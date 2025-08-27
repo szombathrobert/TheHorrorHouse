@@ -95,7 +95,7 @@ export default function About() {
         {/* Right side - Image */}
         <div className="md:w-1/2 flex justify-center px-4 md:px-16 overflow-hidden">
           <Image 
-            src="https://hypixel.net/attachments/its-friday-t-shirt-teeturtle-friday-the-13th_800x-jpg.879794/" 
+            src="/jason_about.jpg" 
             alt="Our Story Image" 
             width={200}
             height={200}

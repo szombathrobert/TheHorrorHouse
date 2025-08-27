@@ -79,7 +79,7 @@ export default function Contact() {
           {/* Right side - Image / Illustration */}
   <div className="md:w-1/2 flex items-center justify-center p-6">
     <Image
-      src="https://i.etsystatic.com/35559813/r/il/99e51a/4212977608/il_570xN.4212977608_hylt.jpg"
+      src="/scream_contact.webp"
       alt='Right-side-image'
       height={600}
       width={600}
